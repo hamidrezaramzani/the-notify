@@ -2,11 +2,106 @@
     width: 200px;
     height: auto;
     padding: 5px 0;
-    background: #eee;
     position: absolute;
     border-radius: 2px;
+}
+
+/*    THEMES    */
+
+.notify-default {
+    background: #eee;
     border-left: 4px solid #ccc;
 }
+
+.notify-default .notify-content {
+    color: #444
+}
+
+.notify-default span {
+    color: rgb(238, 67, 67)
+}
+
+.notify-default span:hover {
+    color: red
+}
+
+/* END DEFAULT THEME */
+
+.notify-danger {
+    background: linear-gradient(135deg, #F5515F 0%, #A1051D 100%);
+    border-left: 4px solid #bd2424;
+}
+
+.notify-danger .notify-content {
+    color: #fff
+}
+
+.notify-danger span {
+    color: rgb(248, 152, 141)
+}
+
+.notify-danger span:hover {
+    color: #fff
+}
+
+/* END DANGER THEME */
+
+.notify-success {
+    background: linear-gradient(135deg, #c3ec52 0%, #0ba29d 100%);
+    border-left: 4px solid #769422;
+}
+
+.notify-success .notify-content {
+    color: #fff
+}
+
+.notify-success span {
+    color: rgb(252, 249, 248)
+}
+
+.notify-success span:hover {
+    color: #ccc
+}
+
+/* END SUCCESS THEME */
+
+.notify-warning {
+    background: linear-gradient(135deg, #fad961 0%, #f76b1c 100%);
+    border-left: 4px solid #b99a28;
+}
+
+.notify-warning .notify-content {
+    color: #fff
+}
+
+.notify-warning span {
+    color: rgb(252, 249, 248)
+}
+
+.notify-warning span:hover {
+    color: #ccc
+}
+
+/* END WARNING THEME */
+
+.notify-info {
+    background: linear-gradient(135deg, #13f1fc 0%, #0470dc 100%);
+    border-left: 4px solid #15949b;
+}
+
+.notify-info .notify-content {
+    color: #fff
+}
+
+.notify-info span {
+    color: rgb(252, 249, 248)
+}
+
+.notify-info span:hover {
+    color: #ccc
+}
+
+/* END INFO THEME */
 
 .notify-box svg {
     vertical-align: middle;
@@ -57,7 +152,6 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 4px;
     margin: 0;
-    color: #444;
 }
 
 .notify-box span {
@@ -66,9 +160,4 @@
     top: 3px;
     right: 3px;
     cursor: pointer;
-    color: rgb(214, 40, 40);
-}
-
-.notify-box span:hover {
-    color: red
 }
