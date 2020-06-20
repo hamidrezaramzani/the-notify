@@ -8,10 +8,8 @@ class Notify {
         position: 'top-left'
     };
 
-
-
     constructor(config) {
-        this.config = config;
+        this.config = { ...this.config, ...config };
         this.validation()
 
     }
@@ -36,7 +34,7 @@ class Notify {
         box.classList.add("notify-box");
         box.classList.add(`notify-${this.getTheme()}`)
         box.classList.add("notify-" + this.config.position);
-        box.classList.add("notify-move-open");
+        box.classList.add("notify-move-open-" + this.config.position);
         box.id = "notify-box-id"
         return box
     }
@@ -66,14 +64,14 @@ class Notify {
         let notifyBox = this.createNotifyBox();
         notifyBox = this.createNotifyContent(notifyBox, message)
         document.body.appendChild(notifyBox);
-        // setTimeout(this.leaveNotif, this.config.time || 3000);
+        setTimeout(this.leaveNotif, this.config.time || 3000);
     }
 
 
     leaveNotif = () => {
         if (document.getElementById('notify-box-id')) {
-            document.getElementById("notify-box-id").classList.remove("notify-move-open")
-            document.getElementById("notify-box-id").classList.add("notify-move-leave")
+            document.getElementById("notify-box-id").classList.remove("notify-move-open-" + this.config.position)
+            document.getElementById("notify-box-id").classList.add("notify-move-leave-" + this.config.position)
             document.getElementById("notify-box-id").addEventListener('animationend', () => {
                 document.getElementById("notify-box-id").remove();
             })
@@ -89,7 +87,7 @@ module.exports = Notify;
 const btn = document.createElement('button')
 btn.innerHTML = "click";
 btn.onclick = () => {
-    const notify = new Notify({ theme: 'success' })
+    const notify = new Notify({ theme: 'success', position: 'bottom-left' })
     notify.show("My Name Is Hamidreza");
 }
 
