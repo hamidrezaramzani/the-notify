@@ -1,12 +1,12 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const babelPropertiesPlugin = require('@babel/plugin-syntax-class-properties')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     entry: './src/index.js',
-    mode: 'development',
+    mode: 'production',
     output: {
-        filename: 'bundle.js',
+        filename: 'notify.js',
         path: path.resolve(__dirname, "dist"),
         libraryTarget: 'var',
         library: 'Notify'
@@ -15,12 +15,22 @@ module.exports = {
         contentBase: './dist',
         port: 4500
     },
-    plugins: [new HtmlWebpackPlugin({ title: 'The Notify Examples' }), new CleanWebpackPlugin()],
+    plugins: [new HtmlWebpackPlugin({ title: 'The Notify Examples' }), new CleanWebpackPlugin(),
+    ],
+    optimization: {
+        minimizer: [new UglifyJsPlugin({
+            test: /\.js(\?.*)?$/i,
+        })]
+    }
+    ,
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ['css-loader', 'style-loader']
+                use: [
+                    'style-loader',
+                    'css-loader',
+                ],
             },
             {
                 test: /\.m?js$/,
