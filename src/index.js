@@ -35,7 +35,6 @@ class Notify {
         box.classList.add(`notify-${this.getTheme()}`)
         box.classList.add("notify-" + this.config.position);
         box.classList.add("notify-move-open-" + this.config.position);
-        box.id = "notify-box-id"
         return box
     }
 
@@ -60,20 +59,38 @@ class Notify {
     }
 
 
+    notifySpace = () => {
+        const boxes = document.getElementsByClassName("notify-box");
+        if (boxes.length) {
+            for (const item of boxes) {
+                const positon = this.config.position.split('-')[0];
+                const styles = getComputedStyle(item)
+                const numeric = Math.round(Number(styles[positon].replace("px", "")))
+                item.style[positon] = numeric + 50 + "px";
+            }
+        }
+
+    }
+
     show = (message) => {
         let notifyBox = this.createNotifyBox();
         notifyBox = this.createNotifyContent(notifyBox, message)
+        this.notifySpace();
         document.body.appendChild(notifyBox);
-        setTimeout(this.leaveNotif, this.config.time || 3000);
+        setTimeout(this.leaveNotif.bind(this, notifyBox, true), this.config.time || 3000);
     }
 
+    leaveNotif = (e, status = false) => {
+        let element = e;
+        if (!status)
+            element = e.target.closest(".notify-box")
 
-    leaveNotif = () => {
-        if (document.getElementById('notify-box-id')) {
-            document.getElementById("notify-box-id").classList.remove("notify-move-open-" + this.config.position)
-            document.getElementById("notify-box-id").classList.add("notify-move-leave-" + this.config.position)
-            document.getElementById("notify-box-id").addEventListener('animationend', () => {
-                document.getElementById("notify-box-id").remove();
+
+        if (element) {
+            element.classList.remove("notify-move-open-" + this.config.position)
+            element.classList.add("notify-move-leave-" + this.config.position)
+            element.addEventListener('animationend', () => {
+                element.remove();
             })
         }
 
@@ -82,13 +99,3 @@ class Notify {
 
 module.exports = Notify;
 
-
-// JUST FOR TEST
-const btn = document.createElement('button')
-btn.innerHTML = "click";
-btn.onclick = () => {
-    const notify = new Notify({ theme: 'success', position: 'bottom-left' })
-    notify.show("My Name Is Hamidreza");
-}
-
-document.body.appendChild(btn)
