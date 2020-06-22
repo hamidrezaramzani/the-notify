@@ -1,10 +1,11 @@
 # the notify
 a tiny plugin for notifications
-# 4 theme
+# 5 theme
 - [x]  default
 - [x]  success
 - [x]  danger
 - [x]  info
+- [x]  warning
 
 # 4 positions
 - [x] top-left
